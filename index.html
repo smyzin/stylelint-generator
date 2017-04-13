@@ -1,0 +1,111 @@
+<html>
+<head>
+	<title>Stylelint Config</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0"/>
+	<link href="public/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+	<link rel="icon" href="public/img/favicon.ico">
+	<link rel="stylesheet" href="public/css/style.css">
+	<link rel="stylesheet" type="text/css" href="public/css/btnStyle.min.css">
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+
+	<div class="vueApp">
+		<header class="header">
+			<div class="header__logo">
+				&#x1f433;	<a href='//umount.space' class="header__logo_link" target="_blank">umount.space</a>
+			</div>
+			<div class="header__button">
+				<a href="#" @click.prevent="showList = !showList">List of properties</a>
+			</div>
+		</header>
+	<!-- MODAL WINDOW -->
+		<div class="modalWindow" v-if="showList">
+			<div class="modalWindow__layout" @click="showList = !showList;"></div>
+			<div class="modalWindow__block">
+				<h2 class="modalWindow__title">Nowadays available properties are: </h2>
+				<span class="modalWindow__close" @click="showList = !showList;">&times;</span>
+				<ul class="modalWindow__list">
+					<li v-for="item of properties"><span class="modalWindow__list_item">{{item.name}}</span> - {{item.desc}}</li>
+				</ul>
+			</div>
+
+		</div>
+	<!-- LEFT BLOCK -->
+		<div class="vueApp__left">
+			<div class="options">
+				<div class="option" v-if="stage+1 > data.length">
+					<h1 class="option__title">Congrates!<hr></h1>
+					<p class="option__text">On the right panel you can see your Stylelint configuration file. To copy it click button below</p>
+					<button class="option__btn btn btn-md btn-no-outline btn-flash btn-success" @click.prevent="copyToClipboard(); showCopy = !showCopy">Copy to clipcoard</button>
+					<transition-group name="fade" tag='div' class="option__transition">
+						<div class="option__success" v-if="showCopy" v-bind:key="1">
+							<div class="option__success_arrow" v-bind:key="11"></div>
+							<span id="successText" v-bind:key="12"></span>
+						</div>
+					</transition-group>
+				</div>
+				<div class="option" v-else>
+					<h1 class="option__title" v-if="stage+1 <= data.length">Choose option<hr></h1>
+				</div>
+
+				<div class="option" v-for="(element, index) of data" v-if="index == stage">
+					<h3 class="option__text">{{element.defenition}} (<span class="option__text_rule">{{element.rule}}</span>)</h3>
+					<div class="choose">
+						<div class="choose__block" v-bind:title="code.answer" v-for="code in element.option">
+							<div class="choose__title" v-bind:title="code.answer" @click.prevent="writeRule(); stage++;">{{code.title}}</div>
+							<hr>
+							<pre class="choose__code" v-bind:title="code.answer" @click.prevent="writeRule(); stage++;">
+<code v-bind:title="code.answer">{{code.exmp}}</code>
+							</pre>
+						</div>
+					</div>
+					<p class="option__number">Option <b>{{index+1}}</b> of {{data.length}}</p>
+					<button class="option__btn btn btn-sm btn-no-outline btn-round btn-warning" v-if="stage > 0 && stage != data.length" @click.prevent="stage--">Назад</button>
+				</div>
+			</div>
+
+		</div>
+	<!-- RIGHT BLOCK -->
+		<div class="vueApp__right">
+			<div class="config">
+<pre class="config__code">
+{
+	'rules': {
+		<span class="config__code_option" v-for="(element, index) of data" v-if="element.choose">
+			'{{element.rule}}': <b v-if="index != data.length-1">{{element.choose}},</b><b v-else>{{element.choose}}</b>
+		</span>
+	}
+}
+</pre>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="credit">
+			<textarea name="copyClipboard" id="copyToClipboardBox" cols="1" rows="1"></textarea>
+			<div class="credit__contact">
+				<a href="https://t.me/smyzin" title="Telegram" class="credit__contact_telegram mdi mdi-telegram mdi-36px mdi-light" target="_blank" style="color: #2CA5E0;"></a>
+				<a href="https://github.com/smyzin" title="Github" class="credit__contact_github mdi mdi-github-circle mdi-36px" target="_blank" style="color: #494747;"></a>
+				<a href="//blog.umount.space" title="Blog" class="credit__contact_blog mdi mdi-book-open-page-variant mdi-36px" target="_blank" style="color: #5f5f5f;"></a>
+				<a href="https://codepen.io/therealnorman/" title="Codepen" class="credit__contact_codepen mdi mdi-codepen mdi-36px" target="_blank" style="color: #5F5F5F;"></a>
+				<a href="https://twitter.com/therealnorman_" title="Twiter" class="credit__contact_twitter mdi mdi-twitter mdi-36px" target="_blank" style="color: #79BEF1;"></a>
+			</div>
+			<div class="credit__author">
+				<span class="credit__author_made">Made with <i class="mdi mdi-coffee mdi-18px"></i> and <i class="mdi mdi-headphones mdi-18px"></i></span>
+			</div>
+		</div>
+	</footer>
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="public/js/index.js"></script>
+
+
+</body>
+</html>

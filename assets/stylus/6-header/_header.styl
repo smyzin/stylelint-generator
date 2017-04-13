@@ -1,0 +1,43 @@
+.header
+	display: block
+	position: relative
+	z-index: 50
+	box-shadow: 0 1px 1px rgba(76, 76, 76, .75)
+	margin: 1px 0
+	&__logo
+		padding: 17px 30px 14px 30px
+		position: inherit
+		left: 0
+		display: inline-block
+		font-size: 1.3em
+		&_link
+			text-decoration: none
+			color:  #696969
+			transition: all .3s cubic-bezier(0.02, 0.01, 0.47, 1)
+			&:hover
+				color: #929292
+				letter-spacing: .3px
+	&__button
+		position: absolute
+		right: 60px
+		top: 12px
+		display: inline-block
+		& a
+			padding: 6.35px 29px
+			display: block
+			color: white
+			background: #f9a11b
+			border-radius: 20px
+			font-size: 13px
+			font-weight: bold
+			line-height: 1.846
+			text-align: center
+			text-decoration: none
+			transition: all .5s cubic-bezier(.02,.01,.47,1)
+			&:hover
+				background: #fd9a03
+				font-weight: 600
+				box-shadow: 3px 3px 5px rgba(76, 76, 76, .65)
+				transform: scale(1.01)
+
+
